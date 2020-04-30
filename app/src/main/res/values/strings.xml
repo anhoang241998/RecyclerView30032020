@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RecyclerViewKhoaPham30032020</string>
+    <string name="layout_list">Food List</string>
+</resources>

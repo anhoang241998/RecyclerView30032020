@@ -9,14 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recyclerviewkhoapham30032020.Interfaces.OnItemClickListener;
 import com.example.recyclerviewkhoapham30032020.R;
 import com.example.recyclerviewkhoapham30032020.models.Food;
 
 import java.util.ArrayList;
 
 public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapter.ViewHolder> {
-
     private ArrayList<Food> mFoods;
+    private OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public FoodRecyclerAdapter(ArrayList<Food> foods) {
         this.mFoods = foods;
@@ -26,7 +31,7 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_food_list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -46,13 +51,27 @@ public class FoodRecyclerAdapter extends RecyclerView.Adapter<FoodRecyclerAdapte
         TextView nameOfTheFood, price, address;
         ImageView foodPicture;
 
-        public ViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             foodPicture = itemView.findViewById(R.id.image1);
             nameOfTheFood = itemView.findViewById(R.id.food_name);
             price = itemView.findViewById(R.id.food_price);
             address = itemView.findViewById(R.id.address);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 }

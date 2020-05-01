@@ -1,6 +1,9 @@
 package com.example.recyclerviewkhoapham30032020.models;
 
-public class Food {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Food implements Parcelable {
     private int mImage;
     private String mNameOfTheFood, mPrice, mAddress;
 
@@ -13,6 +16,25 @@ public class Food {
 
     public Food() {
     }
+
+    protected Food(Parcel in) {
+        mImage = in.readInt();
+        mNameOfTheFood = in.readString();
+        mPrice = in.readString();
+        mAddress = in.readString();
+    }
+
+    public static final Creator<Food> CREATOR = new Creator<Food>() {
+        @Override
+        public Food createFromParcel(Parcel in) {
+            return new Food(in);
+        }
+
+        @Override
+        public Food[] newArray(int size) {
+            return new Food[size];
+        }
+    };
 
     public int getImage() {
         return mImage;
@@ -54,5 +76,18 @@ public class Food {
                 ", mPrice='" + mPrice + '\'' +
                 ", mAddress='" + mAddress + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mImage);
+        dest.writeString(mNameOfTheFood);
+        dest.writeString(mPrice);
+        dest.writeString(mAddress);
     }
 }

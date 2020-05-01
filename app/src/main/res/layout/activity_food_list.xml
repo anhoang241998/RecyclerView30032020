@@ -9,20 +9,38 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="#000"
-        android:textSize="25sp"
-        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/layout_list"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/layout_list"
+        android:textColor="#000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:layout_below="@id/textView"
-        tools:listitem="@layout/layout_food_list_item" />
+        android:layout_below="@id/textView">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            tools:listitem="@layout/layout_food_list_item" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/swipeRefresh"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
 
 </RelativeLayout>
